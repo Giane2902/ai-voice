@@ -4,6 +4,7 @@ import pywhatkit
 import urllib.request
 import json
 import datetime
+import wikipedia
 
 name = 'alexa'
 listener = sr.Recognizer()
@@ -38,14 +39,12 @@ def run():
         music = rec.replace('play','')  # type: ignore
         talk('Playing ' + music)
         pywhatkit.playonyt(music)  # type: ignore
-    if 'cuantos suscriptores tiene' in rec:
-        name_subs = rec.replace('cuantos suscriptores tiene', '')  # type: ignore
-        data = urllib.request.urlopen('')
-        subs = json.loads(data)["items"][0]["statistics"]["subscriberCount"]
-        talk(name_subs + "tiene {:,d}".format(int(subs)) + " suscriptores!")
-    if 'hour' in rec:
+    elif 'hour' in rec:
         hour = datetime.datetime.now().strftime('%I:%M %p')  # type: ignore
         talk("Son las "+hour)
-
+    elif 'search' in rec:
+        order = rec.replace('search','')  # type: ignore
+        info = wikipedia.summary(order,1)
+        talk(info)
 
 run()
