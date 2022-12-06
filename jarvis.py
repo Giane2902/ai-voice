@@ -44,7 +44,7 @@ def run():
         subs = json.loads(data)["items"][0]["statistics"]["subscriberCount"]
         talk(name_subs + "tiene {:,d}".format(int(subs)) + " suscriptores!")
     if 'hour' in rec:
-        hour = datetime.datetime().now().strftime('%H:%M')  # type: ignore
+        hour = datetime.datetime.now().strftime('%I:%M %p')  # type: ignore
         talk("Son las "+hour)
 
 
